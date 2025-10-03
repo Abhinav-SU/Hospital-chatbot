@@ -4,13 +4,14 @@ A hospital data management system that uses Neo4j graph database to store and qu
 
 ## 📋 Overview
 
-This project provides an ETL (Extract, Transform, Load) pipeline to import structured hospital data from CSV files into a Neo4j graph database. The data model includes hospitals, patients, physicians, payers, visits, and reviews - creating a comprehensive healthcare knowledge graph.
+This project provides an ETL (Extract, Transform, Load) pipeline to import structured hospital data from CSV files into a Neo4j graph database. The data model includes hospitals, patients, physicians, payers, visits, and reviews - creating a comprehensive healthcare knowledge graph with relationships between all entities.
 
 ## 🏗️ Architecture
 
 ```
 Hospital-Chatbot/
-├── data/                          # CSV data files (not tracked in git)
+├── data/                          # CSV data files (excluded from git)
+│   ├── healthcare_dataset.csv
 │   ├── hospitals.csv
 │   ├── patients.csv
 │   ├── physicians.csv
@@ -19,64 +20,80 @@ Hospital-Chatbot/
 │   └── reviews.csv
 ├── hospital_neo4j_etl/           # Neo4j ETL package
 │   ├── src/
-│   │   ├── hospital_bulk_csv_write.py
-│   │   └── entrypoint.sh
-│   └── pyproject.toml
-├── analysis.py                    # Data analysis utilities
-├── docker-compose.yml            # Docker orchestration
-└── .gitignore
+│   │   ├── hospital_bulk_csv_write.py  # Main ETL script
+│   │   └── entrypoint.sh               # Docker entrypoint
+│   ├── Dockerfile                      # Docker image definition
+│   └── pyproject.toml                  # Python package config
+├── analysis.py                    # Data analysis using Polars
+├── docker-compose.yml            # Docker orchestration (ETL service)
+├── requirements.txt              # Python dependencies
+├── .gitignore                    # Git ignore rules
+└── README.md
 ```
 
 ## 📊 Data Model
 
-The graph database contains the following node types:
+### Nodes (Entities)
+- **Hospital**: Healthcare facilities (ID, name, state)
+- **Patient**: Patient records (ID, name, sex, DOB, blood type)
+- **Physician**: Medical staff (ID, name, DOB, graduation year, medical school, salary)
+- **Payer**: Insurance providers (ID, name)
+- **Visit**: Patient hospital visits (ID, room number, admission type, dates, diagnosis, treatment)
+- **Review**: Hospital reviews (ID, review text, patient/physician/hospital names)
 
-- **Hospital**: Healthcare facilities with ID, name, and location
-- **Patient**: Patient records
-- **Physician**: Medical staff information
-- **Payer**: Insurance and payment providers
-- **Visit**: Patient visit records
-- **Review**: Hospital reviews and ratings
+### Relationships
+- **AT**: `(Visit)-[:AT]->(Hospital)` - Visit occurred at a hospital
+- **WRITES**: `(Visit)-[:WRITES]->(Review)` - Visit resulted in a review
+- **TREATS**: `(Physician)-[:TREATS]->(Visit)` - Physician treated a visit
+- **COVERED_BY**: `(Visit)-[:COVERED_BY {service_date, billing_amount}]->(Payer)` - Visit covered by insurance
+- **HAS**: `(Patient)-[:HAS]->(Visit)` - Patient had a visit
+- **EMPLOYS**: `(Hospital)-[:EMPLOYS]->(Physician)` - Hospital employs physician
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- Python 3.8+
-- Neo4j Database
-- Docker & Docker Compose (optional)
+- **Python 3.11+** (recommended: 3.11)
+- **Docker Desktop** (for containerized deployment)
+- **Neo4j Database** (optional if using Docker)
 
 ### Installation
 
 1. **Clone the repository**
-   ```bash
+   ```powershell
    git clone <your-repo-url>
    cd Hospital-Chatbot
    ```
 
-2. **Create a virtual environment**
-   ```bash
+2. **Create and activate virtual environment**
+   ```powershell
    python -m venv venv
    .\venv\Scripts\Activate.ps1  # Windows PowerShell
-   # or
-   source venv/bin/activate      # Linux/Mac
    ```
 
 3. **Install dependencies**
-   ```bash
+   ```powershell
    pip install -r requirements.txt
    ```
 
-4. **Set up environment variables**
-   
-   Create a `.env` file in the project root:
+4. **Prepare your data**
+   - Place your CSV files in the `data/` directory
+   - Ensure CSV files match the expected schema (see CSV File Requirements below)
+
+### Usage
+
+#### Option 1: Docker Deployment (Recommended)
+
+**Note**: The current `docker-compose.yml` includes only the ETL service. You'll need to run Neo4j separately or add it to the compose file.
+
+1. **Create `.env` file** in project root:
    ```env
    # Neo4j Configuration
    NEO4J_URI=bolt://localhost:7687
    NEO4J_USERNAME=neo4j
    NEO4J_PASSWORD=your_password_here
    
-   # CSV File Paths (use file:/// URI format)
+   # CSV File Paths (use file:/// URI format for Neo4j)
    HOSPITALS_CSV_PATH=file:///data/hospitals.csv
    PAYERS_CSV_PATH=file:///data/payers.csv
    PHYSICIANS_CSV_PATH=file:///data/physicians.csv
@@ -85,66 +102,200 @@ The graph database contains the following node types:
    REVIEWS_CSV_PATH=file:///data/reviews.csv
    ```
 
-### Usage
+2. **Build and run**:
+   ```powershell
+   docker compose up --build
+   ```
 
-#### Run the ETL Pipeline
+#### Option 2: Local Python Execution
 
-```bash
-python hospital_neo4j_etl/src/hospital_bulk_csv_write.py
-```
+1. **Start Neo4j** (install separately or use Docker)
+   ```powershell
+   # Using Docker for Neo4j only
+   docker run -d \
+     --name neo4j \
+     -p 7474:7474 -p 7687:7687 \
+     -e NEO4J_AUTH=neo4j/password123 \
+     neo4j:5.14.0
+   ```
 
-This will:
-1. Connect to Neo4j database
-2. Set uniqueness constraints on all node types
-3. Load CSV data into the graph database
+2. **Set environment variables** and run ETL:
+   ```powershell
+   # Set environment variables (or use .env file with python-dotenv)
+   $env:NEO4J_URI="bolt://localhost:7687"
+   $env:NEO4J_USERNAME="neo4j"
+   $env:NEO4J_PASSWORD="password123"
+   # ... set CSV paths ...
+   
+   python hospital_neo4j_etl/src/hospital_bulk_csv_write.py
+   ```
 
 #### Data Analysis
 
-```bash
+Analyze CSV data before loading into Neo4j:
+
+```powershell
 python analysis.py
 ```
 
-Analyzes the healthcare dataset using Polars.
-
-## 🐳 Docker Deployment
-
-*(To be configured in docker-compose.yml)*
-
-```bash
-docker-compose up -d
-```
+This will display:
+- Dataset dimensions (rows, columns)
+- First 5 rows of hospital data
+- First 5 rows of physician data
 
 ## 🔒 Security
 
-- All sensitive credentials are stored in environment variables
-- `.env` files are excluded from version control
-- Patient data (CSV files) is not tracked in git
-- Use strong passwords for Neo4j database
+- ✅ **No hardcoded credentials** - All secrets use environment variables
+- ✅ **`.env` excluded** - Environment files not tracked in git
+- ✅ **Patient data protected** - CSV files in `data/` folder excluded from version control
+- ✅ **Virtual environment ignored** - `venv/` not tracked
+- ⚠️ **Change default passwords** - Update Neo4j password in production
 
 ## 📦 Dependencies
 
-- `neo4j` - Neo4j Python driver
-- `polars` - Fast DataFrame library for data analysis
-- `retry` - Retry decorator for handling transient failures
-- `python-dotenv` - Environment variable management (recommended)
+### Core Dependencies
+```
+neo4j==5.14.1          # Neo4j Python driver
+polars==0.19.19        # Fast DataFrame library
+retry==0.9.2           # Retry decorator for fault tolerance
+python-dotenv==1.0.0   # Environment variable management
+```
+
+### Development Dependencies
+```
+ipython==8.18.1        # Enhanced Python shell
+black                  # Code formatter
+flake8                 # Linting
+```
 
 ## 🛠️ Features
 
-- **Retry Logic**: Automatic retry (up to 100 attempts) for database connection failures
-- **Uniqueness Constraints**: Ensures data integrity with unique ID constraints
-- **Bulk CSV Import**: Efficient data loading using Neo4j's `LOAD CSV` feature
-- **Graph Relationships**: Ready for relationship creation between nodes (patients-visits, visits-hospitals, etc.)
+- ✅ **Comprehensive ETL Pipeline**: Loads 6 node types and 6 relationship types
+- ✅ **Automatic Retry Logic**: Retries up to 100 times with 10-second delays (handles Neo4j startup)
+- ✅ **Data Integrity**: Uniqueness constraints on all node IDs
+- ✅ **Bulk CSV Import**: Efficient loading using Neo4j's `LOAD CSV WITH HEADERS`
+- ✅ **Dockerized Deployment**: Containerized ETL service
+- ✅ **Comprehensive Logging**: Track pipeline progress with detailed logs
+- ✅ **Well-Documented Code**: Extensive inline comments explaining each step
 
 ## 📝 CSV File Requirements
 
-Your CSV files should have the following columns:
+### Required CSV Files and Columns:
 
-- **hospitals.csv**: `hospital_id`, `hospital_name`, `state`
-- **patients.csv**: TBD
-- **physicians.csv**: TBD
-- **payers.csv**: TBD
-- **visits.csv**: TBD
-- **reviews.csv**: TBD
+#### `hospitals.csv`
+- `hospital_id` (integer)
+- `hospital_name` (string)
+- `hospital_state` (string)
+
+#### `payers.csv`
+- `payer_id` (integer)
+- `payer_name` (string)
+
+#### `physicians.csv`
+- `physician_id` (integer)
+- `physician_name` (string)
+- `physician_dob` (date string)
+- `physician_grad_year` (year)
+- `medical_school` (string)
+- `salary` (float)
+
+#### `patients.csv`
+- `patient_id` (integer)
+- `patient_name` (string)
+- `patient_sex` (string)
+- `patient_dob` (date string)
+- `patient_blood_type` (string)
+
+#### `visits.csv`
+- `visit_id` (integer)
+- `room_number` (integer)
+- `admission_type` (string)
+- `date_of_admission` (date string)
+- `test_results` (string)
+- `visit_status` (string)
+- `chief_complaint` (string)
+- `treatment_description` (text)
+- `primary_diagnosis` (string)
+- `discharge_date` (date string)
+- `hospital_id` (integer - foreign key)
+- `physician_id` (integer - foreign key)
+- `patient_id` (integer - foreign key)
+- `payer_id` (integer - foreign key)
+- `billing_amount` (float)
+
+#### `reviews.csv`
+- `review_id` (integer)
+- `review` (text)
+- `patient_name` (string)
+- `physician_name` (string)
+- `hospital_name` (string)
+- `visit_id` (integer - foreign key)
+
+## 🎯 Example Queries
+
+Once data is loaded, you can query the graph using Cypher (Neo4j Browser at http://localhost:7474):
+
+```cypher
+// Find all patients treated by a specific physician
+MATCH (patient:Patient)-[:HAS]->(visit:Visit)<-[:TREATS]-(physician:Physician {name: "Dr. Smith"})
+RETURN patient.name, visit.admission_date, visit.diagnosis
+
+// Find hospitals with the most visits
+MATCH (visit:Visit)-[:AT]->(hospital:Hospital)
+RETURN hospital.name, COUNT(visit) AS total_visits
+ORDER BY total_visits DESC
+LIMIT 10
+
+// Calculate average billing by insurance payer
+MATCH (visit:Visit)-[coverage:COVERED_BY]->(payer:Payer)
+RETURN payer.name, 
+       AVG(coverage.billing_amount) AS avg_billing,
+       COUNT(visit) AS total_visits
+ORDER BY avg_billing DESC
+
+// Find patient visit history with full context
+MATCH (patient:Patient {name: "John Doe"})-[:HAS]->(visit:Visit)
+MATCH (visit)-[:AT]->(hospital:Hospital)
+MATCH (visit)<-[:TREATS]-(physician:Physician)
+MATCH (visit)-[:COVERED_BY]->(payer:Payer)
+RETURN patient.name, 
+       visit.admission_date, 
+       hospital.name, 
+       physician.name,
+       payer.name,
+       visit.diagnosis
+ORDER BY visit.admission_date DESC
+```
+
+## 🐛 Troubleshooting
+
+### Docker Issues
+**Error**: `docker compose: command not found`
+- **Solution**: Install Docker Desktop or use `docker-compose` (older version)
+
+**Error**: `unexpected end of JSON input`
+- **Solution**: Clean Docker cache: `docker system prune -f`
+- Ensure Docker Desktop is running
+
+### Connection Issues
+**Error**: `Unable to connect to Neo4j`
+- Check Neo4j is running: `docker ps` or check Neo4j Desktop
+- Verify `NEO4J_URI` in `.env` matches your Neo4j instance
+- Default: `bolt://localhost:7687`
+
+### Build Errors
+**Error**: `invalid pyproject.toml config`
+- ✅ **Fixed**: Typo corrected (`dependecies` → `dependencies`)
+
+**Error**: Module not found
+```powershell
+pip install -r requirements.txt
+```
+
+### CSV Loading Errors
+- Ensure CSV files exist in `data/` directory
+- Check column names match requirements exactly
+- Verify CSV encoding (UTF-8 recommended)
 
 ## 🤝 Contributing
 
@@ -157,23 +308,6 @@ Your CSV files should have the following columns:
 ## 📄 License
 
 This project is for educational purposes.
-
-## 🐛 Troubleshooting
-
-### Connection Issues
-- Ensure Neo4j is running on `bolt://localhost:7687`
-- Check your credentials in `.env` file
-- Verify firewall settings
-
-### CSV Loading Errors
-- Ensure CSV file paths use `file:///` URI format
-- Check that CSV column names match the query expectations
-- Verify CSV files are accessible to Neo4j
-
-### Module Not Found
-```bash
-pip install polars neo4j retry
-```
 
 ## 📧 Contact
 
