@@ -1,6 +1,34 @@
 services:
+  neo4j:
+    image: neo4j:5.14.0
+    container_name: hospital_neo4j
+    ports:
+      - "7474:7474"  # Neo4j Browser
+      - "7687:7687"  # Bolt protocol
+    environment:
+      - NEO4J_AUTH=neo4j/hospital_demo_2026
+      - NEO4J_PLUGINS=["apoc"]
+    volumes:
+      - ./data:/import/data
+      - neo4j_data:/var/lib/neo4j/data
+      - neo4j_logs:/var/lib/neo4j/logs
+    healthcheck:
+      test: ["CMD", "cypher-shell", "-u", "neo4j", "-p", "hospital_demo_2026", "RETURN 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   hospital_neo4j_etl:
     build:
       context: ./hospital_neo4j_etl
     env_file:
       - .env
+    depends_on:
+      neo4j:
+        condition: service_healthy
+    volumes:
+      - ./data:/data
+
+volumes:
+  neo4j_data:
+  neo4j_logs:

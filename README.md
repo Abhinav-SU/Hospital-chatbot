@@ -1,10 +1,27 @@
 # 🏥 Hospital Chatbot
 
-A hospital data management system that uses Neo4j graph database to store and query healthcare data, built for intelligent chatbot integration.
+A hospital data management system that uses Neo4j graph database to store and query healthcare data, with a natural language chatbot interface built using Python and Streamlit.
+
+## Demo Video
+
+- Watch on YouTube: https://youtu.be/GilfsApr93o
+- Local demo: see Hospital-Chatbot-Demo-Final.mp4
+
+Resources to create your own demo:
+- [Quick Start (7 Steps)](QUICK_START_VIDEO.md)
+- [Complete Guide](VIDEO_DEMO_GUIDE.md)
+- [Demo Script](DEMO_SCRIPT.md)
 
 ## 📋 Overview
 
-This project provides an ETL (Extract, Transform, Load) pipeline to import structured hospital data from CSV files into a Neo4j graph database. The data model includes hospitals, patients, physicians, payers, visits, and reviews - creating a comprehensive healthcare knowledge graph with relationships between all entities.
+This project provides:
+- ✅ **Natural Language Chatbot** - Ask questions about patients, physicians, hospitals, and visits
+- ✅ **Neo4j Graph Database** - Efficient relationship queries across healthcare data
+- ✅ **Streamlit Web Interface** - Clean, user-friendly chat interface
+- ✅ **ETL Pipeline** - Import CSV data into Neo4j automatically
+- ✅ **Pattern Matching** - Convert natural language to Cypher queries
+
+**Tech Stack:** Python 3.12 • Streamlit 1.31.0 • Neo4j 5.14.0 • Docker
 
 ## 🏗️ Architecture
 

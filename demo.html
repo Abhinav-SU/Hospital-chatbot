@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Chatbot - Demo Video Creation Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            color: #666;
+        }
+        
+        .status-card {
+            background: #4caf50;
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .card p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .card li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .card li:last-child {
+            border-bottom: none;
+        }
+        
+        .card li::before {
+            content: "✓ ";
+            color: #4caf50;
+            font-weight: bold;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 10px 5px;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-success {
+            background: #4caf50;
+        }
+        
+        .steps {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: white;
+            margin-top: 50px;
+        }
+        
+        .emoji {
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><span class="emoji">🎬</span> Hospital Chatbot Demo Hub</h1>
+            <p class="subtitle">Professional Demo Video Creation Toolkit</p>
+            <div style="margin-top: 20px;">
+                <a href="http://localhost:8502" class="btn btn-success">🚀 Launch Chatbot</a>
+                <a href="QUICK_START_VIDEO.md" class="btn">📘 Quick Start Guide</a>
+            </div>
+        </header>
+        
+        <div class="status-card">
+            ✅ SYSTEM READY - All tools and documentation prepared!
+        </div>
+        
+        <div class="steps">
+            <h2 style="color: #667eea; margin-bottom: 20px;"><span class="emoji">⚡</span> Quick Workflow (7 Steps)</h2>
+            
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Verify System</h3>
+                    <p>Run the pre-flight check to ensure everything is ready</p>
+                    <div class="code-block">./demo_preflight.sh</div>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Install Dependencies</h3>
+                    <p>Install FFmpeg and AI voiceover tools</p>
+                    <div class="code-block">pip install edge-tts pydub<br>sudo apt install ffmpeg</div>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Record Video</h3>
+                    <p>Use OBS Studio, Loom, or SimpleScreenRecorder</p>
+                    <p>📍 URL: <span class="highlight">http://localhost:8502</span></p>
+                    <p>⏱️ Duration: 3-4 minutes • 📐 Resolution: 1920x1080</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Generate Voiceover</h3>
+                    <p>Create professional AI voiceover from script</p>
+                    <div class="code-block">python scripts/generate-voiceover.py</div>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h3>Combine Video + Audio</h3>
+                    <p>Merge your recording with AI voiceover</p>
+                    <div class="code-block">./scripts/combine-video-audio.sh</div>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <h3>Watch & Verify</h3>
+                    <p>Review: <span class="highlight">Hospital-Chatbot-Demo-Final.mp4</span></p>
+                    <p>Check audio sync, volume, and quality</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">7</div>
+                <div class="step-content">
+                    <h3>Upload to YouTube</h3>
+                    <p>Share your professional demo with the world!</p>
+                    <p>Use templates from VIDEO_DEMO_GUIDE.md for title, description, tags</p>
+                </div>
+            </div>
+        </div>
+        
+        <h2 style="color: white; text-align: center; margin: 40px 0 20px;"><span class="emoji">📚</span> Documentation & Resources</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <h2><span class="emoji">🚀</span> Quick Start</h2>
+                <p><strong>QUICK_START_VIDEO.md</strong></p>
+                <p>Start here! Complete workflow in 7 steps, ready in 30 minutes.</p>
+                <ul>
+                    <li>Fast track guide</li>
+                    <li>Troubleshooting tips</li>
+                    <li>Success checklist</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h2><span class="emoji">📖</span> Complete Guide</h2>
+                <p><strong>VIDEO_DEMO_GUIDE.md</strong></p>
+                <p>Comprehensive step-by-step instructions for every detail.</p>
+                <ul>
+                    <li>Software installation</li>
+                    <li>Recording best practices</li>
+                    <li>FFmpeg commands</li>
+                    <li>4K upscaling</li>
+                    <li>YouTube optimization</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h2><span class="emoji">🎙️</span> Demo Script</h2>
+                <p><strong>DEMO_SCRIPT.md</strong></p>
+                <p>3-minute voiceover script with exact timing for each scene.</p>
+                <ul>
+                    <li>Scene-by-scene breakdown</li>
+                    <li>Timing markers</li>
+                    <li>2-minute alternative</li>
+                    <li>Recording tips</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h2><span class="emoji">📋</span> Quick Reference</h2>
+                <p><strong>QUICK_DEMO_GUIDE.md</strong></p>
+                <p>Essential info at a glance while recording.</p>
+                <ul>
+                    <li>8 test questions</li>
+                    <li>Expected results</li>
+                    <li>Social media snippets</li>
+                    <li>Troubleshooting</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h2><span class="emoji">📊</span> System Docs</h2>
+                <p><strong>README_DEMO.md</strong></p>
+                <p>Technical documentation and system overview.</p>
+                <ul>
+                    <li>Features table</li>
+                    <li>Database contents</li>
+                    <li>Tech stack</li>
+                    <li>Demo metrics</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h2><span class="emoji">🗺️</span> Resource Map</h2>
+                <p><strong>DEMO_RESOURCES.md</strong></p>
+                <p>Visual overview of all available resources.</p>
+                <ul>
+                    <li>Workflow diagram</li>
+                    <li>File structure</li>
+                    <li>Quick commands</li>
+                    <li>Troubleshooting links</li>
+                </ul>
+            </div>
+        </div>
+        
+        <h2 style="color: white; text-align: center; margin: 40px 0 20px;"><span class="emoji">🛠️</span> Automation Scripts</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <h2><span class="emoji">✅</span> Pre-flight Check</h2>
+                <p><strong>demo_preflight.sh</strong></p>
+                <p>Automated system verification before recording.</p>
+                <div class="code-block">./demo_preflight.sh</div>
+                <ul>
+                    <li>Server running check</li>
+                    <li>Neo4j connection test</li>
+                    <li>Demo queries validation</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h2><span class="emoji">🎤</span> Voiceover Generator</h2>
+                <p><strong>scripts/generate-voiceover.py</strong></p>
+                <p>Generate professional AI voiceover from script.</p>
+                <div class="code-block">python scripts/generate-voiceover.py</div>
+                <ul>
+                    <li>Microsoft Edge TTS</li>
+                    <li>Professional voices</li>
+                    <li>MP3 output</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h2><span class="emoji">🎬</span> Video Combiner</h2>
+                <p><strong>scripts/combine-video-audio.sh</strong></p>
+                <p>Merge video recording with AI voiceover.</p>
+                <div class="code-block">./scripts/combine-video-audio.sh</div>
+                <ul>
+                    <li>FFmpeg automation</li>
+                    <li>H.264 encoding</li>
+                    <li>Quality optimization</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div style="background: white; border-radius: 10px; padding: 30px; margin: 30px 0; text-align: center;">
+            <h2 style="color: #667eea; margin-bottom: 20px;"><span class="emoji">🎯</span> Example Questions for Demo</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; text-align: left;">
+                <div>
+                    <strong>🏥 Hospitals</strong>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>✓ Show me all hospitals in California</li>
+                        <li>✓ What are the hospital statistics?</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>👨‍⚕️ Physicians</strong>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>✓ Which physicians have the highest salaries?</li>
+                        <li>✓ Who treated the most patients?</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>👤 Patients</strong>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>✓ Show me John Smith's visit history</li>
+                        <li>✓ Which patients were treated by Dr. Sarah Johnson?</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>⭐ Reviews</strong>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>✓ Show me patient reviews</li>
+                        <li>✓ What are people saying about hospitals?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p><strong>🎬 Everything is ready to create your professional demo video!</strong></p>
+            <p style="margin-top: 10px;">Start with <a href="QUICK_START_VIDEO.md" style="color: white; text-decoration: underline;">QUICK_START_VIDEO.md</a></p>
+            <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.8;">
+                Tech Stack: Python 3.12 • Streamlit 1.31.0 • Neo4j 5.14.0 • FFmpeg • Edge-TTS
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏥 Hospital Chatbot - Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .demo-section {
+            margin-bottom: 40px;
+        }
+
+        .demo-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .card .stat {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .query-example {
+            background: #2d3748;
+            color: #68d391;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border-left: 5px solid #68d391;
+        }
+
+        .query-example code {
+            display: block;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 10px 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        .status-online {
+            background: #48bb78;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+            color: #4a5568;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            color: #48bb78;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .actions {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: #f7fafc;
+            border-radius: 10px;
+        }
+
+        .footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 Hospital Chatbot System</h1>
+            <p>Neo4j Graph Database Integration - Demo Ready</p>
+            <p style="margin-top: 10px;">
+                <span class="status-indicator status-online"></span>
+                System Online - January 7, 2026
+            </p>
+        </div>
+
+        <div class="content">
+            <!-- System Overview -->
+            <div class="demo-section">
+                <h2>📊 System Overview</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>Hospitals</h3>
+                        <div class="stat">5</div>
+                        <p>Healthcare facilities across multiple states</p>
+                    </div>
+                    <div class="card">
+                        <h3>Patients</h3>
+                        <div class="stat">10</div>
+                        <p>Patient records with complete medical history</p>
+                    </div>
+                    <div class="card">
+                        <h3>Physicians</h3>
+                        <div class="stat">5</div>
+                        <p>Medical professionals from top universities</p>
+                    </div>
+                    <div class="card">
+                        <h3>Visits</h3>
+                        <div class="stat">10</div>
+                        <p>Patient hospital visits with diagnoses</p>
+                    </div>
+                    <div class="card">
+                        <h3>Reviews</h3>
+                        <div class="stat">10</div>
+                        <p>Patient feedback and ratings</p>
+                    </div>
+                    <div class="card">
+                        <h3>Payers</h3>
+                        <div class="stat">5</div>
+                        <p>Insurance providers and coverage</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="demo-section">
+                <h2>✨ Key Features</h2>
+                <div class="card">
+                    <ul class="feature-list">
+                        <li>Graph-based data model for complex healthcare relationships</li>
+                        <li>6 node types: Hospitals, Patients, Physicians, Payers, Visits, Reviews</li>
+                        <li>6 relationship types connecting all entities</li>
+                        <li>Automated ETL pipeline with retry logic</li>
+                        <li>Docker containerization for easy deployment</li>
+                        <li>Real-time data querying with Cypher</li>
+                        <li>Data integrity with uniqueness constraints</li>
+                        <li>Comprehensive logging and error handling</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Example Queries -->
+            <div class="demo-section">
+                <h2>🔍 Example Cypher Queries</h2>
+                
+                <h3 style="margin: 20px 0 10px 0; color: #4a5568;">1. Find all patients treated by a specific physician:</h3>
+                <div class="query-example">
+                    <code>MATCH (patient:Patient)-[:HAS]->(visit:Visit)&lt;-[:TREATS]-(physician:Physician {name: "Dr. Sarah Johnson"})
+RETURN patient.name AS Patient, visit.date_of_admission AS AdmissionDate, visit.primary_diagnosis AS Diagnosis</code>
+                </div>
+
+                <h3 style="margin: 20px 0 10px 0; color: #4a5568;">2. Find hospitals with the most visits:</h3>
+                <div class="query-example">
+                    <code>MATCH (visit:Visit)-[:AT]->(hospital:Hospital)
+RETURN hospital.name AS Hospital, COUNT(visit) AS TotalVisits
+ORDER BY TotalVisits DESC
+LIMIT 5</code>
+                </div>
+
+                <h3 style="margin: 20px 0 10px 0; color: #4a5568;">3. Calculate average billing by insurance payer:</h3>
+                <div class="query-example">
+                    <code>MATCH (visit:Visit)-[coverage:COVERED_BY]->(payer:Payer)
+RETURN payer.name AS InsuranceProvider, 
+       AVG(visit.billing_amount) AS AverageBilling,
+       COUNT(visit) AS TotalClaims
+ORDER BY AverageBilling DESC</code>
+                </div>
+
+                <h3 style="margin: 20px 0 10px 0; color: #4a5568;">4. Find all emergency admissions with reviews:</h3>
+                <div class="query-example">
+                    <code>MATCH (visit:Visit {admission_type: "Emergency"})-[:WRITES]->(review:Review)
+MATCH (visit)-[:AT]->(hospital:Hospital)
+RETURN hospital.name AS Hospital, 
+       visit.chief_complaint AS Complaint,
+       review.review AS PatientReview
+LIMIT 10</code>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="actions">
+                <h2 style="margin-bottom: 20px; color: #2d3748;">🚀 Access Neo4j Database</h2>
+                <p style="margin-bottom: 20px; color: #4a5568;">Click below to open the Neo4j Browser and explore the graph database:</p>
+                <a href="http://localhost:7474" target="_blank" class="btn">Open Neo4j Browser</a>
+                <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px; display: inline-block;">
+                    <strong>Login Credentials:</strong><br>
+                    Username: <code style="background: #e2e8f0; padding: 3px 8px; border-radius: 3px;">neo4j</code><br>
+                    Password: <code style="background: #e2e8f0; padding: 3px 8px; border-radius: 3px;">hospital_demo_2026</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🏥 Hospital Chatbot System | Neo4j Graph Database | Demo Ready 2026</p>
+            <p style="margin-top: 10px; opacity: 0.8;">Built with Python, Neo4j, and Docker</p>
+        </div>
+    </div>
+
+    <script>
+        // Add simple interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🏥 Hospital Chatbot Demo Page Loaded');
+            
+            // Check if Neo4j is accessible
+            fetch('http://localhost:7474')
+                .then(() => {
+                    console.log('✅ Neo4j is accessible');
+                })
+                .catch(() => {
+                    console.log('⚠️ Neo4j may not be running. Start with: docker compose up');
+                });
+        });
+    </script>
+</body>
+</html>
