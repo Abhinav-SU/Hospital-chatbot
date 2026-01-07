@@ -158,7 +158,7 @@ def init_chatbot():
     return HospitalChatbot(
         uri=os.getenv("NEO4J_URI", "bolt://localhost:7687"),
         user=os.getenv("NEO4J_USERNAME", "neo4j"),
-        password=os.getenv("NEO4J_PASSWORD", "hospital_demo_2026")
+        password=os.getenv("NEO4J_PASSWORD", "password")
     )
 
 try:

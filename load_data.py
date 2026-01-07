@@ -5,16 +5,16 @@ from neo4j import GraphDatabase
 import csv
 import os
 
-# Direct connection
-URI = "bolt://localhost:7687"
-USER = "neo4j"
-PASSWORD = "hospital_demo_2026"
+# Direct connection (use environment variables; no hardcoded secrets)
+URI = os.getenv("NEO4J_URI", "bolt://localhost:7687")
+USER = os.getenv("NEO4J_USERNAME", "neo4j")
+PASSWORD = os.getenv("NEO4J_PASSWORD", "password")
 
 driver = GraphDatabase.driver(URI, auth=(USER, PASSWORD))
 
 def load_csv(filename):
-    """Read CSV file"""
-    path = f"/workspaces/Hospital-chatbot/data/{filename}"
+    """Read CSV file from local data/ folder"""
+    path = os.path.join("data", filename)
     with open(path, 'r') as f:
         return list(csv.DictReader(f))
 

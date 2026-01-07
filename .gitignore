@@ -60,6 +60,21 @@ logs/
 data/
 *.csv
 
+# Demo artifacts (do not commit)
+screenshots/
+voiceover/
+Hospital-Chatbot-Demo-*.mp4
+*.mp4
+*.webm
+*.mov
+
+# Demo documentation (not needed in repo)
+DEMO_*.md
+QUICK_*.md
+VIDEO_*.md
+REAL_*.md
+README_DEMO.md
+
 # Docker
 docker-compose.override.yml
 
